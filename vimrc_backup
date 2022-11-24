@@ -12,7 +12,7 @@ set hidden
 "set signcolumn=yes:2 -> guess doesn't work in vim
 "set relativenumber -> causing a lot of confusion with numbering
 set number
-set termguicolors
+"set termguicolors mac specific
 set undofile
 set spell
 set title
@@ -35,6 +35,7 @@ set statusline+=col:\ %c,
 "setting up backup
 "set backup
 "set backupdir=
+set backspace=2 "mac specific configuration
 
 
 "-----------------------------------------------------------------
@@ -191,3 +192,6 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 " TAGBAR
 
 nmap <F8> :TagbarToggle<CR>
+
+syntax on
+
