@@ -12,7 +12,8 @@ set hidden
 "set signcolumn=yes:2 -> guess doesn't work in vim
 "set relativenumber -> causing a lot of confusion with numbering
 set number
-"set termguicolors mac specific
+"set termguicolors mac specific, comment this out for mac machines or the
+"themes wouldn't work properly
 set undofile
 set spell
 set title
@@ -35,7 +36,7 @@ set statusline+=col:\ %c,
 "setting up backup
 "set backup
 "set backupdir=
-set backspace=2 "mac specific configuration
+set backspace=2 "mac specific configuration , add this specifically for mac so backspace deletes the item
 
 
 "-----------------------------------------------------------------
@@ -193,5 +194,5 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 
 nmap <F8> :TagbarToggle<CR>
 
-syntax on
+syntax on "add this for mac if syntax hightlighting is off
 
