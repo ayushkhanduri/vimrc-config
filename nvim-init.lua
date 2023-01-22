@@ -1,8 +1,4 @@
-vim.cmd([[
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
-]])
-require('telescope').setup{  defaults = { file_ignore_patterns = { "node_modules" }} }
-
-vim.opt.guifont = {"Source Code Pro", "h22"}
+lua require('telescope').setup{  defaults = { file_ignore_patterns = { "node_modules", ".git" }, pickers ={ find_files = { hidden=true}}} }
