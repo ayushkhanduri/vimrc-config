@@ -12,7 +12,7 @@ set hidden
 "set signcolumn=yes:2 -> guess doesn't work in vim
 "set relativenumber -> causing a lot of confusion with numbering
 set number
-set termguicolors
+set termguicolors "Comment this for mac machines or themes wouldn't work
 set undofile
 set spell
 set title
@@ -31,6 +31,8 @@ set clipboard=unnamedplus
 set confirm
 set exrc
 filetype plugin indent on
+"set backspace=2 "mac specific configuration , add this specifically for mac so backspace deletes the item
+"syntax on -> 'add this for mac if syntax hightlighting is off'
 set statusline+=col:\ %c,
 "setting up backup
 "set backup
@@ -56,7 +58,8 @@ call plug#begin()
 
 Plug 'tpope/vim-commentary' "for commenting
 Plug 'neoclide/coc.nvim', {'branch': 'release'} "vs code for vim
-Plug 'dracula/vim' "theme
+Plug 'dracula/vim' "theme for vscode
+Plug 'doums/darcula' "theme for pycharm
 Plug 'tpope/vim-fugitive' "git in vim
 Plug 'preservim/nerdtree' "file tree
 Plug 'kien/ctrlp.vim' "Searching file
@@ -67,6 +70,8 @@ Plug 'nvim-lua/plenary.nvim' "requirement for telescope
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' } "Better fuzzy search
 Plug 'preservim/tagbar' "showing tags at the right
 Plug 'dense-analysis/ale' "Syntax checking for multiple languages
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim' "tabs in nvim
 call plug#end()
 
 "---------------------------------------------------------------
@@ -76,6 +81,7 @@ call plug#end()
 "--------------------------------------------------------------
 
 colorscheme codedark
+autocmd FileType python colorscheme darcula
 
 "NERDTREE
 autocmd VimEnter * NERDTree
@@ -116,7 +122,7 @@ set wildignore+=*/node_modules/*
 "Telescope
 let mapleader = " "
 " nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")}) <CR>
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden= true})<cr>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden: true})<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
@@ -333,3 +339,50 @@ inoremap <S-Up> <Esc>:m-2<CR>
 inoremap <S-Down> <Esc>:m+<CR>
 
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+
+" BARBAR
+" Move to previous/next
+nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
+nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
+
+" Re-order to previous/next
+nnoremap <silent>    <A-<> <Cmd>BufferMovePrevious<CR>
+nnoremap <silent>    <A->> <Cmd>BufferMoveNext<CR>
+
+" Goto buffer in position...
+nnoremap <silent>    <A-1> <Cmd>BufferGoto 1<CR>
+nnoremap <silent>    <A-2> <Cmd>BufferGoto 2<CR>
+nnoremap <silent>    <A-3> <Cmd>BufferGoto 3<CR>
+nnoremap <silent>    <A-4> <Cmd>BufferGoto 4<CR>
+nnoremap <silent>    <A-5> <Cmd>BufferGoto 5<CR>
+nnoremap <silent>    <A-6> <Cmd>BufferGoto 6<CR>
+nnoremap <silent>    <A-7> <Cmd>BufferGoto 7<CR>
+nnoremap <silent>    <A-8> <Cmd>BufferGoto 8<CR>
+nnoremap <silent>    <A-9> <Cmd>BufferGoto 9<CR>
+nnoremap <silent>    <A-0> <Cmd>BufferLast<CR>
+
+" Pin/unpin buffer
+nnoremap <silent>    <A-p> <Cmd>BufferPin<CR>
+
+" Close buffer
+nnoremap <silent>    <A-c> <Cmd>BufferClose<CR>
+
+" Wipeout buffer
+"                          :BufferWipeout
+" Close commands
+"                          :BufferCloseAllButCurrent
+"                          :BufferCloseAllButVisible
+"                          :BufferCloseAllButPinned
+"                          :BufferCloseAllButCurrentOrPinned
+"                          :BufferCloseBuffersLeft
+"                          :BufferCloseBuffersRight
+
+" Magic buffer-picking mode
+nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
+nnoremap <silent> <C-p>    <Cmd>BufferPickDelete<CR>
+
+" Sort automatically by...
+nnoremap <silent> <Space>bb <Cmd>BufferOrderByBufferNumber<CR>
+nnoremap <silent> <Space>bd <Cmd>BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>bl <Cmd>BufferOrderByLanguage<CR>
+nnoremap <silent> <Space>bw <Cmd>BufferOrderByWindowNumber<CR>
